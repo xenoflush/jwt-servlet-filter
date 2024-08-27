@@ -6,9 +6,6 @@ import com.sparta.jwtservletfilter.repository.UserRepository;
 import com.sparta.jwtservletfilter.util.JwtUtil;
 import com.sparta.jwtservletfilter.util.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 /**
@@ -44,7 +41,7 @@ public class UserService {
      * @param requestDto 로그인 요청 정보 (사용자 이름 및 비밀번호 포함)
      * @return 로그인 결과를 담은 ResponseEntity 객체
      */
-    public ResponseEntity<Object> login(RequestDto requestDto) {
+    public String login(RequestDto requestDto) {
         String username = requestDto.getUsername(); // 요청에서 사용자 이름을 추출
         String password = requestDto.getPassword(); // 요청에서 비밀번호를 추출
 
@@ -64,11 +61,6 @@ public class UserService {
         // JWT를 생성하여 사용자의 이름과 역할을 포함시킵니다.
         String token = jwtUtil.generateToken(user.getUsername(), user.getRole());
 
-        // 응답 헤더에 JWT 토큰을 추가합니다.
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization", token);
-
-        // ResponseEntity를 생성하여 상태 코드를 201(CREATED)로 설정하고, 헤더에 JWT를 포함하여 반환합니다.
-        return ResponseEntity.status(HttpStatus.CREATED).headers(httpHeaders).build();
+        return token;
     }
 }

@@ -1,7 +1,6 @@
 ### POST request to example server
 POST http://localhost:8080/api/login
 Content-Type: application/json;charset=UTF-8
-Authorization:
 
 {
   "username": "이순신",
@@ -9,7 +8,6 @@ Authorization:
 }
 
 ### GET request to example server
-GET http://localhost:8080/api/user
+GET http://localhost:8080/api/admin/get
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLsnbTsiJzsi6AiLCJhdXRoIjoiVVNFUiIsImV4cCI6MTcyNDYwNzg5MCwiaWF0IjoxNzI0NjA0MjkwfQ.TR9DzyF6kb50oNFlVpD-YfaA-OECKAJGEM5Jg8IJJcc
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLsnbTsiJzsi6AiLCJhdXRoIjoiVVNFUiIsImV4cCI6MTcyNDc1NTQ4MiwiaWF0IjoxNzI0NzUxODgyfQ.Yx91OK03dRctpCs3JMHV4lQv41BB0aIidFK4SJZfX2g

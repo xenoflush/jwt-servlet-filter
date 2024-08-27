@@ -14,7 +14,7 @@
 
         <RollingFile name ="RollingFileAppender">
             <FileName>${LOG_PATH}/log4j2.log</FileName>
-            <FilePattern>${LOG_PATH}/log4j2.%d{yyyy-MM-dd-hh-mm}.%i.log</FilePattern>
+            <FilePattern>${LOG_PATH}/log4j2.%d{yyyy-MM-dd-hh-mm}.%i.log.gz</FilePattern>
             <PatternLayout>
                 <Pattern>${DEFAULT_PATTERN}</Pattern>
             </PatternLayout>

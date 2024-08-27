@@ -53,11 +53,32 @@ public class JwtFilter implements Filter {
         }
 
         // JWT 토큰에서 'Bearer ' 부분을 제거하고 토큰만 추출합니다.
-        String token = authorizationHeader.substring(7);
+        jwt = authorizationHeader.substring(7);
+        username = jwtUtil.extractUsername(jwt);
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7);
-            username = jwtUtil.extractUsername(jwt);
+
+        // 사용자 권한에 대한 인증 처리
+
+        // ADMIN 인지 체크하여 패스
+        if (jwtUtil.hasRole(jwt, "ADMIN")) {
+            if(requestURI.startsWith("/api/admin")) {
+                chain.doFilter(request, response);
+            } else {
+                // 권한이 없으면 403 Forbidden 응답
+                httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "접근권한이 없습니다.");
+            }
+            return;
+        }
+
+        // USER 인지 체크하여 패스
+        if (jwtUtil.hasRole(jwt, "USER")) {
+            if(requestURI.startsWith("/api/user")) {
+                chain.doFilter(request, response);
+            } else {
+                // 권한이 없으면 403 Forbidden 응답
+                httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "접근권한이 없습니다.");
+            }
+            return;
         }
 
         if (username != null && jwtUtil.validateToken(jwt)) {
